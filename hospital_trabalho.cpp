@@ -81,6 +81,33 @@ struct FilaPacientes {
 // Cada atendimento concluído vai para a pilha de histórico
 // O médico pode consultar o último atendimento com peek()
 
+struct PilhaHistorico {
+    No* topo = nullptr;
+
+    // TODO 4: Implemente push(nome)
+    //         Empilha um atendimento concluído
+    void push(const string& nome) {
+        // ...
+    }
+
+    // TODO 5: Implemente pop()
+    //         Desempilha e retorna o último atendimento
+    string pop() {
+        return "";  // substitua pelo retorno correto
+    }
+
+    // TODO 6: Implemente peek()
+    //         Retorna o último atendimento SEM remover
+    string peek() const {
+        return "";  // substitua pelo retorno correto
+    }
+
+    bool isEmpty() const { return topo == nullptr; }
+
+    ~PilhaHistorico() {
+        while (!isEmpty()) pop();
+    }
+};
 
 
 // ════════════════════════════════════════════════════════════════
@@ -146,64 +173,7 @@ void imprimirHistorico(PilhaHistorico& hist) {
 // PROGRAMA PRINCIPAL — integra as 4 estruturas
 // ════════════════════════════════════════════════════════════════
 
-int main() {
-    cout << "╔═══════════════════════════════════════════════════╗\n";
-    cout << "║  Sistema de Atendimento — Squad ________________  ║\n";
-    cout << "╚═══════════════════════════════════════════════════╝\n\n";
 
-    // Crie as estruturas
-    FilaPacientes  fila;
-    PilhaHistorico historico;
-    ListaMedicos   medicos;
-
-    // ── Cadastrar médicos (R3) ────────────────────────────────
-    medicos.adicionarMedico("Dra. Ana Lima");
-    medicos.adicionarMedico("Dr. Bruno Costa");
-    medicos.adicionarMedico("Dra. Carla Ramos");
-    medicos.percorrer("Médicos disponíveis");
-
-    // ── Pacientes chegam na fila (R1) ─────────────────────────
-    cout << "\nPacientes chegando:\n";
-    fila.enqueue("Eduardo (urgencia=3)", 3);
-    fila.enqueue("Fernanda (urgencia=1)", 1);
-    fila.enqueue("Gabriel (urgencia=2)", 2);
-    fila.enqueue("Helena (urgencia=1)", 1);
-
-    cout << "Próximo a ser atendido: " << fila.frente_peek() << "\n";
-    cout << "Total na fila: " << fila.tamanho() << "\n";
-
-    // ── Simulação de atendimentos ─────────────────────────────
-    cout << "\nSimulação de atendimentos:\n";
-    int atend = 1;
-    while (!fila.isEmpty() && medicos.temMedico()) {
-        string paciente = fila.dequeue();
-        string medico   = medicos.chamarMedico();
-
-        cout << "  [" << atend++ << "] " << medico
-             << " atende " << paciente << "\n";
-
-        // Registra no histórico (R2)
-        historico.push(medico + " → " + paciente);
-
-        // Médico volta para a fila depois de atender
-        // (descomente após implementar adicionarMedico)
-        // medicos.adicionarMedico(medico);
-    }
-
-    // ── Último atendimento (peek na pilha) ────────────────────
-    cout << "\nÚltimo atendimento registrado (peek): " << historico.peek() << "\n";
-
-    // ── Relatório final (R4) ──────────────────────────────────
-    imprimirHistorico(historico);
-
-    // ── Commit sugerido ──────────────────────────────────────
-    cout << "\n💡 Lembrete de commits:\n";
-    cout << "  git add atendimento_template.cpp README.md\n";
-    cout << "  git commit -m \"feat: sistema de atendimento integrado (R1-R4)\"\n";
-    cout << "  git push origin main\n";
-
-    return 0;
-}
 
 // ════════════════════════════════════════════════════════════════
 // CHECKLIST DE ENTREGA
